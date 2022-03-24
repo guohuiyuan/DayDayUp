@@ -19,6 +19,7 @@
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
+2. [go学习目标](./interviewExperience/goRequirement.md)
 
 ## 杂记
 
