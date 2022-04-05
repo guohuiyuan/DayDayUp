@@ -1,10 +1,3 @@
-<!--
- * @Description: 
- * @Author: Alone
- * @Date: 2022-03-29 22:31:37
- * @LastEditors: Alone
- * @LastEditTime: 2022-03-29 22:41:42
--->
 # DayDayUp
 好好学习，天天向上
 
@@ -26,7 +19,13 @@
 
 ## Java
 
+### 基础
+
 1. [基础](./java/basic/basic.md)
+
+### 线程
+
+1. [ThreadLocal](./java/thread/ThreadLocal.md)
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
