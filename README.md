@@ -29,14 +29,6 @@
 2. [fork](./computerBasics/os/Fork.md)
 3. [内存管理](./computerBasics/os/MemoryManagement.md)
 
-## jsp
-1. [jsp标签](./jsp/tag.md)
-
-
-
-
-<<<<<<< HEAD
-=======
 ## Java
 
 ### 基础
@@ -47,9 +39,12 @@
 
 1. [ThreadLocal](./java/thread/ThreadLocal.md)
 
-## 面经
-1. [汇总](./interviewExperience/summary.md)
-2. [go学习目标](./interviewExperience/goRequirement.md)
->>>>>>> 65e24c2b13f615a16d30727ae0b4fd28a61c125b
+## jsp
+1. [jsp标签](./jsp/tag.md)
+
+
+
+
+
 
 
