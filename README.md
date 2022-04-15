@@ -45,6 +45,9 @@
 1. [提交内容](./notice/content.md)
 2. [提交格式](./notice/commitFormat.md)
 
+## shell
+1. [常见用法](./shell/commonUsage.md)
+
 
 
 
