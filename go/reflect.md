@@ -74,6 +74,8 @@ func main() {
 
 1.1.4. 结构体与反射
 
+通过反射得到sqlite建表语句
+
 ```
 package main
 
@@ -210,6 +212,130 @@ func addrs(objptr interface{}) []interface{} {
 		addrs = append(addrs, elem.Field(i).Addr().Interface())
 	}
 	return addrs
+}
+```
+
+调用方法
+
+```
+package main
+
+import (
+    "fmt"
+    "reflect"
+)
+
+// 定义结构体
+type User struct {
+    Id   int
+    Name string
+    Age  int
+}
+
+func (u User) Hello(name string) {
+    fmt.Println("Hello：", name)
+}
+
+func main() {
+    u := User{1, "5lmh.com", 20}
+    v := reflect.ValueOf(u)
+    // 获取方法
+    m := v.MethodByName("Hello")
+    // 构建一些参数
+    args := []reflect.Value{reflect.ValueOf("6666")}
+    // 没参数的情况下：var args2 []reflect.Value
+    // 调用方法，需要传入方法的参数
+    m.Call(args)
+}
+```
+
+1.1.5. 反射练习
+
+- 任务：解析如下配置文件
+  - 序列化：将结构体序列化为配置文件数据并保存到硬盘
+  - 反序列化：将配置文件内容反序列化到程序的结构体
+- 配置文件有server和mysql相关配置
+
+```
+#this is comment
+;this a comment
+;[]表示一个section
+[server]
+ip = 10.238.2.2
+port = 8080
+
+[mysql]
+username = root
+passwd = admin
+database = test
+host = 192.168.10.10
+port = 8000
+timeout = 1.2
+```
+
+PS: 我承认没有用反射，我还是喜欢用库
+```
+package main
+
+import (
+    "fmt"
+    "gopkg.in/ini.v1"
+    "log"
+)
+
+type Server struct{
+	IP string
+	Port string
+}
+type Mysql struct{
+	Username string
+	Passwd string
+	Database string
+	Host string
+	Port string
+	Timeout string
+}
+
+func main() {
+    cfg, err := ini.Load("data/test/config.ini")
+    getErr("load config", err)
+
+    // 遍历所有的section
+    for _, v := range cfg.Sections(){
+        fmt.Println(v.KeyStrings())
+    }
+
+    // 获取默认分区的key
+    fmt.Println(cfg.Section("server").Key("ip").String())    // 将结果转为string
+    fmt.Println(cfg.Section("server").Key("port").String())     // 将结果转为float
+
+    // 获取mysql分区的key
+	fmt.Println(cfg.Section("mysql").Key("username").String())  // 将结果转为string
+    fmt.Println(cfg.Section("mysql").Key("passwd").String())     // 将结果转为int
+	fmt.Println(cfg.Section("mysql").Key("database").String())  // 将结果转为string
+    fmt.Println(cfg.Section("mysql").Key("timeout").String())     // 将结果转为int
+    fmt.Println(cfg.Section("mysql").Key("host").String())  // 将结果转为string
+    fmt.Println(cfg.Section("mysql").Key("port").String())     // 将结果转为int
+	s := &Server{
+		IP:cfg.Section("server").Key("ip").String(),
+		Port:cfg.Section("server").Key("port").String(),
+	}
+	m := &Mysql{
+		Username:cfg.Section("mysql").Key("username").String(),
+		Passwd:cfg.Section("mysql").Key("passwd").String(),
+		Database:cfg.Section("mysql").Key("database").String(),
+		Host:cfg.Section("mysql").Key("host").String(),
+		Port:cfg.Section("mysql").Key("port").String(),
+		Timeout:cfg.Section("mysql").Key("timeout").String(),
+	}
+	fmt.Println(s)
+	fmt.Println(m)
+}
+
+func getErr(msg string, err error){
+    if err != nil{
+        log.Printf("%v err->%v\n", msg, err)
+    }
 }
 ```
 
