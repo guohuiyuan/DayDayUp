@@ -101,9 +101,47 @@ This is a test file
 
 
 4. if语句
-if [ -f file ] ：如果文件存在
-if [ -d … ] ：如果目录存在
-if [ -s file ] ：如果文件存在且非空
-if [ -r file ] ：如果文件存在且可读
-if [ -w file ] ：如果文件存在且可写
-if [ -x file ] ： 如果文件存在且可执行
+    if [ -f file ] ：如果文件存在
+    if [ -d … ] ：如果目录存在
+    if [ -s file ] ：如果文件存在且非空
+    if [ -r file ] ：如果文件存在且可读
+    if [ -w file ] ：如果文件存在且可写
+    if [ -x file ] ： 如果文件存在且可执行
+
+5. makefile
+Q: makefile报错：missing separator (did you mean TAB instead of 8 spaces?). Stop.
+A: 因为makefile中，书写命令时，必须要在命令开头敲一个Tab键，而不能说用8个空格（space）来代替Tab，虽然看起来样子是一样的，但是它们不会生效为真正地makefile命令！（可以看到直接复制的话[命令行](https://so.csdn.net/so/search?q=命令行&spm=1001.2101.3001.7020)都是白色的，表示不生效的意思！）
+
+6. string
+```
+var="http://www.aaa.com/123.htm"
+echo ${var#*//}
+echo ${var##*/}
+echo ${var%/*}
+echo ${var%%/*}
+echo ${var:0:5}
+echo ${var:7}
+echo ${var:0-7:3}
+echo ${var:0-7}
+```
+结果
+```
+www.aaa.com/123.htm
+123.htm
+http://www.aaa.com
+http:
+http:
+www.aaa.com/123.htm
+123
+123.htm
+```
+| 格式                       | 说明                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| ${string: start :length}   | 从 string 字符串的左边第 start 个字符开始，向右截取 length 个字符。 |
+| ${string: start}           | 从 string 字符串的左边第 start 个字符开始截取，直到最后。    |
+| ${string: 0-start :length} | 从 string 字符串的右边第 start 个字符开始，向右截取 length 个字符。 |
+| ${string: 0-start}         | 从 string 字符串的右边第 start 个字符开始截取，直到最后。    |
+| ${string#*chars}           | 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。 |
+| ${string##*chars}          | 从 string 字符串最后一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。 |
+| ${string%chars*}           | 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。 |
+| ${string%%chars*}          | 从 string 字符串最后一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。 |
