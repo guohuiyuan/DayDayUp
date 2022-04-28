@@ -17,9 +17,6 @@
 2. [fork](./computerBasics/os/Fork.md)
 3. [内存管理](./computerBasics/os/MemoryManagement.md)
 
-## go
-1. [反射](./go/reflect.md)
-
 ## 杂记
 ### himawari
 1. [初心](./daily/himawari/initialCommit.md)
@@ -27,6 +24,9 @@
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
 2. [go学习目标](./interviewExperience/goRequirement.md)
+
+## go
+1. [反射](./go/reflect.md)
 
 ## Java
 
