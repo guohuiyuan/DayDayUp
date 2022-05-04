@@ -25,17 +25,6 @@
 ### himawari
 1. [初心](./daily/himawari/initialCommit.md)
 
-## Java
-
-### 基础
-
-1. [基础](./java/basic/basic.md)
-
-### 线程
-
-1. [线程生命周期](./java/thread/ThreadLifeCycle.md)
-2. [ThreadLocal](./java/thread/ThreadLocal.md)
-
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
 2. [go学习目标](./interviewExperience/goRequirement.md)
