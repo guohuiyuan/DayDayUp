@@ -17,6 +17,10 @@
 2. [fork](./computerBasics/os/Fork.md)
 3. [内存管理](./computerBasics/os/MemoryManagement.md)
 
+### 计算机网络
+
+1. [计算机网络](./os/ComputerNetwork.md)
+
 ## 杂记
 ### himawari
 1. [初心](./daily/himawari/initialCommit.md)
@@ -29,7 +33,8 @@
 
 ### 线程
 
-1. [ThreadLocal](./java/thread/ThreadLocal.md)
+1. [线程生命周期](./java/thread/ThreadLifeCycle.md)
+2. [ThreadLocal](./java/thread/ThreadLocal.md)
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
