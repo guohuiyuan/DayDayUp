@@ -22,7 +22,8 @@
 
 ### 计算机网络
 
-1. [计算机网络](./os/ComputerNetwork.md)
+1. [DNS解析流程](./os/computernetwork/DNSwork.md)
+2. [重放攻击](./os/computernetwork/replayattack.md)
 
 ## 数据库
 
