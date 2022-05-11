@@ -32,7 +32,8 @@
 1. [MySQL工作流程](./database/MySQL/howtowork.md)
 
 ## go
-1. [反射](./go/reflect.md)
+1. [vscode开发golang环境搭建](./go/install.md)
+2. [反射](./go/reflect.md)
 
 ## Java
 
