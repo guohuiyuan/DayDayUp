@@ -27,7 +27,26 @@ Docker 能够自动执行重复性任务，例如搭建和配置开发环境，�
 标准 : Docker 容器基于开放式标准，能够在所有主流 Linux 版本、Microsoft Windows 以及包括 VM、裸机服务器和云在内的任何基础设施上运行。
 安全 : Docker 赋予应用的隔离性不仅限于彼此隔离，还独立于底层的基础设施。Docker 默认提供最强的隔离，因此应用出现问题，也只是单个容器的问题，而不会波及到整台机器。
 
-    
+- docker命令
+1. 使用 docker run 命令来在容器内运行一个应用程序
+
+```
+docker run ubuntu:15.10 /bin/echo "Hello world"
+```
+
+2. 运行交互式的容器
+   
+```
+docker run -i -t ubuntu:15.10 /bin/bash
+```
+
+3. 后台运行
+
+```
+docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+```
+
+4.
     
 
 
