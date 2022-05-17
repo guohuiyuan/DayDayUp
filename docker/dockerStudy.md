@@ -155,3 +155,18 @@ docker run -d -p 5000:5000 training/webapp python app.py
 docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
 docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
 ```
+
+9. Dockerfile
+
+最近需要构建一个编译springboot项目的镜像，所以先编写这一章
+
+[docker使用maven时修改镜像](https://www.jianshu.com/p/4d61dc51c98b)
+
+首先把java和maven搞清楚
+
+maven安装在 /usr/share/maven 目录下，要替换maven的settings文件
+
+```
+docker run -it maven:3.6-jdk-8 /bin/bash
+
+```
