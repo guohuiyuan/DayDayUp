@@ -22,6 +22,9 @@
 2. [fork](./computerBasics/os/Fork.md)
 3. [内存管理](./computerBasics/os/MemoryManagement.md)
 
+## 杂记
+### himawari
+1. [初心](./daily/himawari/initialCommit.md)
 
 ## 数据库
 
@@ -29,9 +32,16 @@
 
 1. [MySQL工作流程](./database/MySQL/howtowork.md)
 
+## docker
+1. [docker学习](./docker/dockerStudy.md)
+
 ## Go
 1. [vscode开发golang环境搭建](./go/install.md)
 2. [反射](./go/reflect.md)
+
+## 面经
+1. [汇总](./interviewExperience/summary.md)
+2. [go学习目标](./interviewExperience/goRequirement.md)
 
 ## Java
 
@@ -47,13 +57,8 @@
 ## jsp
 1. [jsp标签](./jsp/tag.md)
 
-## 杂记
-### himawari
-1. [初心](./daily/himawari/initialCommit.md)
-
-## 面经
-1. [汇总](./interviewExperience/summary.md)
-2. [go学习目标](./interviewExperience/goRequirement.md)
+## k8s
+1. [kubectl使用](./k8s/kubectl.md)
 
 ## 注意事项
 1. [提交内容](./notice/content.md)
