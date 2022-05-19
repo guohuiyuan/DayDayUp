@@ -69,7 +69,9 @@ docker exec -it c1264844c099 /bin/bash
 
 docker ps：查看正在运行的容器
 
-docker ps -a：查看停止运行的容器
+docker ps -a：查看所有的容器，包括停止运行的
+
+docker ps -l：显示最近创建的容器，只有一个容器
 
 docker port [CONTAINER ID]：查看容器的端口
 
@@ -135,9 +137,12 @@ docker rm：删除容器，必须是停止状态的容器
 
 docker container prune：处理所有处于终止状态的容器
 
+docker rmi -f [IMAGE ID]：删除镜像
+
 ```
 docker rm -f 15c4c8e80a5a
 docker container prune
+docker rmi -f 6fae60ef3446
 ```
 
 8. 运行一个web服务器
@@ -168,5 +173,55 @@ maven安装在 /usr/share/maven 目录下，要替换maven的settings文件
 
 ```
 docker run -it maven:3.6-jdk-8 /bin/bash
+```
 
+编译image的dockerfile
+
+```
+FROM maven:3.6-jdk-8 AS builder
+
+VOLUME /root/.m2
+
+# Get data producer code and compile it
+COPY ./src /opt/data-producer/src
+COPY ./pom.xml /opt/data-producer/pom.xml
+COPY ./settings.xml /usr/share/maven/conf/settings.xml
+
+WORKDIR /opt/data-producer
+RUN mvn clean package -Dmaven.test.skip=true
+
+FROM java:8
+EXPOSE 8080
+COPY --from=builder /opt/data-producer/target/renren-fast.jar /app.jar
+RUN bash -c 'touch /app.jar'
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
+
+10. 容器互联
+
+docker run -d -P --name runoob training/webapp python app.py：使用--name给容器命名
+
+docker network create -d bridge test-net：新建网络，-d 参数指定 Docker 网络类型，有 bridge、overlay
+
+docker network -ls：查看网络状态
+
+```
+docker run -d -P --name runoob training/webapp python app.py
+docker network create -d bridge test-net
+
+# 运行两个相同网络的容器
+docker run -itd --name test1 --network test-net ubuntu /bin/bash
+docker run -itd --name test2 --network test-net ubuntu /bin/bash
+
+# 连接两个容器
+docker exec -it test1 /bin/bash
+docker exec -it test2 /bin/bash
+
+# 安装ping命令
+apt-get update
+apt install iputils-ping
+
+# 测试网络是否互通
+ping test2
+ping test1
 ```
