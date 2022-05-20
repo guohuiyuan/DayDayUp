@@ -37,7 +37,10 @@
 
 ## Go
 1. [vscode开发golang环境搭建](./go/install.md)
-2. [反射](./go/reflect.md)
+2. [基本语法](./go/basicgrammar.md)
+3. [函数](./go/function.md)
+4. [生产者消费者模型](./go/productconsumermodel.md)
+5. [反射](./go/reflect.md)
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)
