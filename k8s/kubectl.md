@@ -31,6 +31,9 @@ kubectl get namespaces --kubeconfig /usr/local/service/devto/etc/devto.kubeconfi
 --kubeconfig /usr/local/service/devto/etc/devto.kubeconfig
 --kubeconfig /home/haibaraguo/k8s/devenv.conf
 
+# kubectl在$HOME/.kube目录中查找一个名为config的配置文件
+ln -s /home/haibaraguo/k8s/devenv.conf ~/.kube/config
+
 # 获得所有namespaces
 kubectl get namespaces
 
