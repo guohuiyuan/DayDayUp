@@ -59,4 +59,8 @@ kubectl get deployment -A
 # 查看deployment详细信息
 kubectl describe deployment framework-app-example -n framework
 
+# 进入容器 
+kubectl exec pod名称 -it -c 容器名称 /bin/sh
+kubectl exec framework-app-qa-75c9bcd555-rdck5 -it -c qa /bin/sh -n framework
+
 ```

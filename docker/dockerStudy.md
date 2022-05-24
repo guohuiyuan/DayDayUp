@@ -1,14 +1,32 @@
 # docker学习和应用
 
-- 引言
+<!-- GFM-TOC -->
+* [docker学习和应用](#docker学习和应用)
+	* [引言](#引言)
+	* [定义](#定义)
+	* [特点](#特点)
+	* [常用命令](#常用命令)
+		* [在容器内运行一个应用程序](#在容器内运行一个应用程序)
+		* [进入后台状态的容器](#进入后台状态的容器)
+		* [查看容器状态](#查看容器状态)
+		* [改变容器状态](#改变容器状态)
+		* [查看容器内的标准输出](#查看容器内的标准输出)
+		* [导出和导入容器](#导出和导入容器)
+		* [删除容器](#删除容器)
+		* [运行一个web服务器](#运行一个web服务器)
+		* [Dockerfile](#Dockerfile)
+		* [容器互联](#容器互联)
+<!-- GFM-TOC -->
+
+## 引言
     
 	稍微使用了一下docker，有点感慨，为什么我大学的时候没有去了解使用它。
     
 	感觉使用docker，就可以瞬间在Linux下写脚本，试命令，比在本机安装一个虚拟机跑linux方便的多。
     
-	一年前下载了docker desktop，用不会，发现命令行才是真的好用。
+	一年前下载了docker desktop，图形化界面用不好，命令行才是真的好用。
     
-- docker定义
+## 定义
 
 	一句话概括容器：容器就是将软件打包成标准化单元，以用于开发、交付和部署。
 
@@ -27,7 +45,7 @@
 
 	用户可以方便地创建和使用容器，把自己的应用放入容器。容器还可以进行版本管理、复制、分享、修改，就像管理普通的代码一样。
 
-- docker 容器的特点
+## 特点
 
 	轻量 ：在一台机器上运行的多个 Docker 容器可以共享这台机器的操作系统内核；它们能够迅速启动，只需占用很少的计算和内存资源。镜像是通过文件系统层进行构造的，并共享一些公共文件。这样就能尽量降低磁盘用量，并能更快地下载镜像。
 
@@ -35,9 +53,11 @@
 
 	安全 ：Docker 赋予应用的隔离性不仅限于彼此隔离，还独立于底层的基础设施。Docker 默认提供最强的隔离，因此应用出现问题，也只是单个容器的问题，而不会波及到整台机器。
 
-- docker命令
+## 常用命令
 
-1. 使用 docker run 命令来在容器内运行一个应用程序
+---
+
+### 在容器内运行一个应用程序
 
 docker pull [镜像]：获得镜像，一般不需要这一步，因为若本地无镜像，docker run会自动拉取
 
@@ -54,7 +74,9 @@ docker run -i -t ubuntu:15.10 /bin/bash
 docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1; done"
 ```
 
-2. 进入后台状态的容器
+---
+
+### 进入后台状态的容器
 
 docker attach [CONTAINER ID] [执行的命令]：退出会停止容器
 
@@ -65,7 +87,9 @@ docker run -itd ubuntu:15.10 /bin/bash
 docker exec -it c1264844c099 /bin/bash
 ```
 
-3. 查看容器状态
+---
+
+### 查看容器状态
 
 docker ps：查看正在运行的容器
 
@@ -90,7 +114,9 @@ docker inspect 6d809d5785d7
 docker port 536406b5056f 5000
 ```
 
-4. 改变容器状态
+---
+
+### 改变容器状态
 
 docker stop [CONTAINER ID] | docker stop [NAMES]：停止容器
 
@@ -106,7 +132,9 @@ docker start 98f5aa2579f3
 docker restart 98f5aa2579f3
 ```
 
-5. 在宿主主机内使用 docker logs 命令，查看容器内的标准输出
+---
+
+### 查看容器内的标准输出
 
 docker logs [CONTAINER ID] | docker logs [NAMES]：查看日志
 
@@ -118,7 +146,9 @@ docker logs 98f5aa2579f3
 docker logs clever_almeida
 ```
 
-6. 导出和导入容器
+---
+
+### 导出和导入容器
 
 docker export [CONTAINER ID] > [本地路径]
 
@@ -129,7 +159,9 @@ docker export 15c4c8e80a5a > hello.tar
 cat hello.tar | docker import - hello:test1
 ```
 
-7. 删除容器
+---
+
+### 删除容器
 
 docker rm -f [CONTAINER ID]：删除容器，可以删除运行的
 
@@ -145,7 +177,9 @@ docker container prune
 docker rmi -f 6fae60ef3446
 ```
 
-8. 运行一个web服务器
+---
+
+### 运行一个web服务器
 
 docker run -d -P training/webapp python app.py：这个是不行的，因为会默认用其他端口
 
@@ -161,7 +195,9 @@ docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
 docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
 ```
 
-9. Dockerfile
+---
+
+### Dockerfile
 
 最近需要构建一个编译springboot项目的镜像，所以先编写这一章
 
@@ -197,7 +233,9 @@ RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-10. 容器互联
+---
+
+### 容器互联
 
 docker run -d -P --name runoob training/webapp python app.py：使用--name给容器命名
 

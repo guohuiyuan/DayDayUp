@@ -1,89 +1,122 @@
 ## 1 echo和@
-```java
+
+```
 # 关闭单行回显
 @
+
 # 从下一行开始关闭回显
 echo off 
+
 # 从本行开始关闭回显。一般批处理第一行都是这个
 @echo off 
+
 # 从下一行开始打开回显
 echo on
+
 # 显示当前是 echo off 状态还是 echo on 状态
 echo 
+
 # 输出一个”回车换行”，空白行
 #(同echo, echo; echo+ echo[ echo] echo/ echo)
 echo. 
 ```
+
 ## 2 errorlevel
 
-```java
+```
 echo %errorlevel%
 ```
+
 每个命令运行结束，可以用这个命令行格式查看返回码
 默认值为0，一般命令执行出错会设 errorlevel 为1
 
 ## 3 dir
+
 ```
-#显示当前目录中的文件和子目录
+# 显示当前目录中的文件和子目录
 dir 
-#显示当前目录中的文件和子目录，包括隐藏文件和系统文件
+
+# 显示当前目录中的文件和子目录，包括隐藏文件和系统文件
 dir /a 
-#显示 C 盘当前目录中的目录
+
+# 显示 C 盘当前目录中的目录
 dir /a:d 
-#显示 C 盘当前目录中的文件
+
+# 显示 C 盘当前目录中的文件
 dir /a:-d 
-#/b只显示文件名，/p分页显示
+
+# /b只显示文件名，/p分页显示
 dir c/b/p 
-#显示当前目录和子目录里所有的.exe文件
+
+# 显示当前目录和子目录里所有的.exe文件
 dir *.exe /s 
 ```
+
 ## 4 cd
+
 ```
-#进入根目录
+# 进入根目录
 cd\ 
-#显示当前目录
+
+# 显示当前目录
 cd 
-#可以同时更改盘符和目录
+
+# 可以同时更改盘符和目录
 cd /d d:\sdk 
 ```
+
 ## 5 md
-```java
+
+```
 # 如果 d:\a 不存在，将会自动创建中级目录
 md d:\a\b\c 
 ```
+
 ## 6 rd
+
 ```
-#删除当前目录里的 abc 子目录，要求为空目录
+# 删除当前目录里的 abc 子目录，要求为空目录
 rd abc 
-#删除 d:\temp 文件夹及其子文件夹和文件，/q安静模式
+
+# 删除 d:\temp 文件夹及其子文件夹和文件，/q安静模式
 rd /s/q d:\temp 
 ```
+
 ## 7 del
+
 ```
-#删除指定文件，不能是隐藏、系统、只读文件
+# 删除指定文件，不能是隐藏、系统、只读文件
 del d:\test.txt 
-#删除 d:\temp 文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录
+
+# 删除 d:\temp 文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录
 del /q/a/f d:\temp*.*
-#删除 d:\temp 及子文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录
+
+# 删除 d:\temp 及子文件夹里面的所有文件，包括隐藏、只读、系统文件，不包括子目录
 del /q/a/f/s d:\temp*.*
 ```
 
 ## 8 ren
+
 ```
-#支持对文件夹的重命名
+# 支持对文件夹的重命名
 ren d:\temp tmp
-#将当前目录中的所有 .txt 文件扩展名更改为 .doc 扩展
+
+# 将当前目录中的所有 .txt 文件扩展名更改为 .doc 扩展
 ren *.txt *.doc
 ```
+
 ## 9 cls
-```java
+
+```
 #清屏
 cls
 ```
+
 ## 9.5 对文件和文件夹的处理
 问题：
 在battest文件夹，创建a.txt,b.txt,...,z.txt一共26个文本，文本内容分别是a,b,..,z,然后批量重命名为1.log,2.log,3.log,...,26.log
-```java
+
+```
 ::创建文本
 @echo off 
 set list=a b c d e f g h i j k l m n o p q r s t u v w x y z
@@ -92,7 +125,8 @@ set list=a b c d e f g h i j k l m n o p q r s t u v w x y z
 ))
 pause
 ```
-```java
+
+```
 ::修改文件名
 @echo off 
 setlocal ENABLEDELAYEDEXPANSION
@@ -104,64 +138,100 @@ set /a v=0
 ))
 pause
 ```
+
 ps:
 在cmd执行命令前会对脚本进行预处理，其中有一个过程是变量识别过程，在这个过程中，如果有两个%括起来的如%value%类似这样的变量，就会对其进行识别，并且查找这个变量对应的值，再而将值替换掉这个变量，这个替换值的过程,就叫做变量扩展，然后再执行命令。
 
 setlocal enabledelayedexpansion 开启变量延迟，能监测变量的动态变化，要用!value!来引用变量
+
 ## 10 type
 
 显示文件内容
-type c:\boot.ini #显示指定文件的内容，程序文件一般会显示乱码
-type *.txt #显示当前目录里所有.txt文件的内容
+
+```
+# 显示指定文件的内容，程序文件一般会显示乱码
+type c:\boot.ini 
+
+# 显示当前目录里所有.txt文件的内容
+type *.txt
+```
 
 ## 11 copy
 
 拷贝文件
+
+```
+# 复制 c:\test.txt 文件到 d:\ ，并重命名为 test.bak
 copy c:\test.txt d:\test.bak
-复制 c:\test.txt 文件到 d:\ ，并重命名为 test.bak
+
+# 从屏幕上等待输入，按 Ctrl+Z 结束输入，输入内容存为test.txt文件
+# con代表屏幕，prn代表打印机，nul代表空设备
 copy con test.txt
-从屏幕上等待输入，按 Ctrl+Z 结束输入，输入内容存为test.txt文件
-con代表屏幕，prn代表打印机，nul代表空设备
+
+# 合并 1.txt 和 2.txt 的内容，保存为 3.txt 文件
+# 如果不指定 3.txt ，则保存到 1.txt
 copy 1.txt + 2.txt 3.txt
-合并 1.txt 和 2.txt 的内容，保存为 3.txt 文件
-如果不指定 3.txt ，则保存到 1.txt
+
+# 复制文件到自己，实际上是修改了文件日期
 copy test.txt +
-复制文件到自己，实际上是修改了文件日期
-## 
-12 title
+```
+
+## 12 title
 
 设置cmd窗口的标题
-title 新标题 #可以看到cmd窗口的标题栏变了
-## 
-13 ver
+
+```
+#可以看到cmd窗口的标题栏变了
+title 新标题 
+```
+
+## 13 ver
 
 显示系统版本
-## 
-14 label 和 vol
+
+## 14 label 和 vol
 
 设置卷标
-vol #显示卷标
-label #显示卷标，同时提示输入新卷标
-label c:system #设置C盘的卷标为 system
-## 
-15 pause
+
+```
+#显示卷标
+vol 
+
+#显示卷标，同时提示输入新卷标
+label 
+
+#设置C盘的卷标为 system
+label c:system 
+```
+
+## 15 pause
 
 暂停命令
-## 
-16 rem 和 ::
+
+## 16 rem 和 ::
 
 注释命令
 注释行不执行操作
-## 
-17 date 和 time
+
+## 17 date 和 time
 
 日期和时间
-date #显示当前日期，并提示输入新日期，按"回车"略过输入
-date/t #只显示当前日期，不提示输入新日期
-time #显示当前时间，并提示输入新时间，按"回车"略过输入
-time/t #只显示当前时间，不提示输入新时间
-## 
-18 goto 和 :
+
+```
+#显示当前日期，并提示输入新日期，按"回车"略过输入
+date 
+
+#只显示当前日期，不提示输入新日期
+date/t 
+
+#显示当前时间，并提示输入新时间，按"回车"略过输入
+time 
+
+#只显示当前时间，不提示输入新时间
+time/t 
+```
+
+## 18 goto 和 :
 
 跳转命令
 :label #行首为:表示该行是标签行，标签行不执行操作
