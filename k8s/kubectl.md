@@ -63,4 +63,9 @@ kubectl describe deployment framework-app-example -n framework
 kubectl exec pod名称 -it -c 容器名称 /bin/sh
 kubectl exec framework-app-qa-75c9bcd555-rdck5 -it -c qa /bin/sh -n framework
 
+# 查看配置
+kubectl get configmaps -n framework-system
+
+# 查看配置详细状态
+kubectl describe configmaps appinfo-for-sms2http-at-team-framework
 ```
