@@ -236,6 +236,37 @@ RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
+[docker--部署vue项目 ](https://cnblogs.com/zouzou-busy/p/11838524.html)
+
+前端项目打包
+
+```
+FROM node:12-alpine AS builder
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+	&& apk add --update make python3 g++ && rm -rf /var/cache/apk/*
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+Volume /root/nodejsdocker_alpine/
+
+FROM nginx
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+ADD default.conf /etc/nginx/conf.d/
+
+COPY --from=builder /usr/src/app/dist/ /usr/share/nginx/html/
+```
+
 ---
 
 ### 容器互联
