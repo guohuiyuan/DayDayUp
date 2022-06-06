@@ -1,33 +1,47 @@
 # docker学习和应用
 
-- 引言
+<!-- GFM-TOC -->
+- [docker学习和应用](#docker学习和应用)
+	- [引言](#引言)
+	- [定义](#定义)
+	- [特点](#特点)
+	- [image](#image)
+	- [container](#container)
+	- [常见问题](#常见问题)
+	- [常用命令](#常用命令)
+		- [在容器内运行一个应用程序](#在容器内运行一个应用程序)
+		- [进入后台状态的容器](#进入后台状态的容器)
+		- [查看容器状态](#查看容器状态)
+		- [改变容器状态](#改变容器状态)
+		- [查看容器内的标准输出](#查看容器内的标准输出)
+		- [导出和导入容器](#导出和导入容器)
+		- [删除容器](#删除容器)
+		- [运行一个web服务器](#运行一个web服务器)
+		- [Dockerfile](#dockerfile)
+		- [容器互联](#容器互联)
+<!-- GFM-TOC -->
+
+## 引言
     
 	稍微使用了一下docker，有点感慨，为什么我大学的时候没有去了解使用它。
     
 	感觉使用docker，就可以瞬间在Linux下写脚本，试命令，比在本机安装一个虚拟机跑linux方便的多。
     
-	一年前下载了docker desktop，用不会，发现命令行才是真的好用。
+	一年前下载了docker desktop，图形化界面用不好，命令行才是真的好用。
     
-- docker定义
+## 定义
 
-	一句话概括容器：容器就是将软件打包成标准化单元，以用于开发、交付和部署。
+	Docker 是一个容器化平台，它包装你所有开发环境依赖成一个整体，像一个容
+	器。保证项目开发，如开发、测试、发布等各生产环节都可以无缝工作在不同
+	的平台
 
-	容器镜像是轻量的、可执行的独立软件包 ，包含软件运行所需的所有内容：代码、运行时环境、系统工具、系统库和设置。
+	Docker 容器：将一个软件包装在一个完整的文件系统中，该文件系统包含运行
+	所需的一切：代码，运行时，系统工具，系统库等。可以安装在服务器上的任
+	何东西。
 
-	容器化软件适用于基于 Linux 和 Windows 的应用，在任何环境中都能够始终如一地运行。
+	这保证软件总是运行在相同的运行环境，无需考虑基础环境配置的改变。
 
-	容器赋予了软件独立性，使其免受外在环境差异（例如，开发和预演环境的差异）的影响，从而有助于减少团队间在相同基础设施上运行不同软件时的冲突。
-
-	Docker 是世界领先的软件容器平台。
-
-	Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核 提供的 CGroup 功能和 namespace 来实现的，以及 AUFS 类的 
-	UnionFS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。 由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。
-
-	Docker 能够自动执行重复性任务，例如搭建和配置开发环境，从而解放了开发人员以便他们专注在真正重要的事情上：构建杰出的软件。
-
-	用户可以方便地创建和使用容器，把自己的应用放入容器。容器还可以进行版本管理、复制、分享、修改，就像管理普通的代码一样。
-
-- docker 容器的特点
+## 特点
 
 	轻量 ：在一台机器上运行的多个 Docker 容器可以共享这台机器的操作系统内核；它们能够迅速启动，只需占用很少的计算和内存资源。镜像是通过文件系统层进行构造的，并共享一些公共文件。这样就能尽量降低磁盘用量，并能更快地下载镜像。
 
@@ -35,9 +49,29 @@
 
 	安全 ：Docker 赋予应用的隔离性不仅限于彼此隔离，还独立于底层的基础设施。Docker 默认提供最强的隔离，因此应用出现问题，也只是单个容器的问题，而不会波及到整台机器。
 
-- docker命令
+## image
 
-1. 使用 docker run 命令来在容器内运行一个应用程序
+	Docker image 是 Docker 容器的源。换言之，Docker images 用于创建 Docker 容器（containers）。
+	
+	映像（Images）通过 Docker build 命令创建，当 run 映像时，
+	
+	它启动成一个 容器（container）进程。 做好的映像由于可能非常庞大，常注册存储在诸如 registry.hub.docker.com 这样的公共平台上。
+	
+	映像常被分层设计，每层可单独成为一个小映像，由多层小映像再构成大映像，这样碎片化的设计为了使映像在互联网上共享时，最小化传输数据需求。
+
+## container
+
+	Docker containers -- Docker 容器 -- 是包含其所有运行依赖环境，但与其它容器共享操作系统内核的应用，它运行在独立的主机操作系统用户空间进中。
+	
+	Docker 容器并不紧密依赖特定的基础平台：可运行在任何配置的计算机，任何平台以及任何云平台上
+
+## 常见问题
+
+## 常用命令
+
+---
+
+### 在容器内运行一个应用程序
 
 docker pull [镜像]：获得镜像，一般不需要这一步，因为若本地无镜像，docker run会自动拉取
 
@@ -54,7 +88,9 @@ docker run -i -t ubuntu:15.10 /bin/bash
 docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1; done"
 ```
 
-2. 进入后台状态的容器
+---
+
+### 进入后台状态的容器
 
 docker attach [CONTAINER ID] [执行的命令]：退出会停止容器
 
@@ -65,7 +101,9 @@ docker run -itd ubuntu:15.10 /bin/bash
 docker exec -it c1264844c099 /bin/bash
 ```
 
-3. 查看容器状态
+---
+
+### 查看容器状态
 
 docker ps：查看正在运行的容器
 
@@ -90,7 +128,9 @@ docker inspect 6d809d5785d7
 docker port 536406b5056f 5000
 ```
 
-4. 改变容器状态
+---
+
+### 改变容器状态
 
 docker stop [CONTAINER ID] | docker stop [NAMES]：停止容器
 
@@ -106,7 +146,9 @@ docker start 98f5aa2579f3
 docker restart 98f5aa2579f3
 ```
 
-5. 在宿主主机内使用 docker logs 命令，查看容器内的标准输出
+---
+
+### 查看容器内的标准输出
 
 docker logs [CONTAINER ID] | docker logs [NAMES]：查看日志
 
@@ -118,7 +160,9 @@ docker logs 98f5aa2579f3
 docker logs clever_almeida
 ```
 
-6. 导出和导入容器
+---
+
+### 导出和导入容器
 
 docker export [CONTAINER ID] > [本地路径]
 
@@ -129,7 +173,9 @@ docker export 15c4c8e80a5a > hello.tar
 cat hello.tar | docker import - hello:test1
 ```
 
-7. 删除容器
+---
+
+### 删除容器
 
 docker rm -f [CONTAINER ID]：删除容器，可以删除运行的
 
@@ -145,7 +191,9 @@ docker container prune
 docker rmi -f 6fae60ef3446
 ```
 
-8. 运行一个web服务器
+---
+
+### 运行一个web服务器
 
 docker run -d -P training/webapp python app.py：这个是不行的，因为会默认用其他端口
 
@@ -161,7 +209,9 @@ docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
 docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
 ```
 
-9. Dockerfile
+---
+
+### Dockerfile
 
 最近需要构建一个编译springboot项目的镜像，所以先编写这一章
 
@@ -175,7 +225,7 @@ maven安装在 /usr/share/maven 目录下，要替换maven的settings文件
 docker run -it maven:3.6-jdk-8 /bin/bash
 ```
 
-编译image的dockerfile
+java项目的dockerfile
 
 ```
 FROM maven:3.6-jdk-8 AS builder
@@ -197,7 +247,60 @@ RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-10. 容器互联
+go项目的dockerfile
+
+```
+FROM golang:1.18 AS builder
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+	GOPROXY="https://goproxy.cn,direct"
+
+WORKDIR /workdir
+COPY . .
+RUN go build -o clock 
+
+FROM alpine:3.15
+COPY --from=builder /workdir/clock clock
+CMD ["./clock"]
+```
+
+[docker--部署vue项目 ](https://cnblogs.com/zouzou-busy/p/11838524.html)
+
+前端项目打包
+
+```
+FROM node:12-alpine AS builder
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+	&& apk add --update make python3 g++ && rm -rf /var/cache/apk/*
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+Volume /root/nodejsdocker_alpine/
+
+FROM nginx
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+ADD default.conf /etc/nginx/conf.d/
+
+COPY --from=builder /usr/src/app/dist/ /usr/share/nginx/html/
+```
+
+---
+
+### 容器互联
 
 docker run -d -P --name runoob training/webapp python app.py：使用--name给容器命名
 

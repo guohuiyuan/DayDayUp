@@ -1,3 +1,21 @@
+# markdown语法
+
+<!-- GFM-TOC -->
+- [markdown语法](#markdown语法)
+- [一、标题](#一标题)
+- [二、字体](#二字体)
+- [三、引用](#三引用)
+- [四、分割线](#四分割线)
+- [五、图片](#五图片)
+- [六、超链接](#六超链接)
+- [七、列表](#七列表)
+- [八、表格](#八表格)
+- [九、代码](#九代码)
+- [十、流程图](#十流程图)
+- [十一、目录](#十一目录)
+- [十二、公式](#十二公式)
+<!-- GFM-TOC -->
+
 # 一、标题
 标准语法，在#后面接一个空格再写文字，一个#是一级标题，两个#是二级标题以此类推。
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22244395/1627526680348-f2ebd283-b44a-4243-8df9-04eb334ce0ea.png#clientId=u1e9b5003-5ec9-4&from=paste&height=200&id=u936257d2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=200&originWidth=381&originalType=binary&ratio=1&size=16334&status=done&style=none&taskId=u4a4f7205-6154-4638-bc57-27f7b24f2db&width=381)
@@ -6,6 +24,11 @@
 斜体：要倾斜的文字左右分别用一个*号包起来
 斜体加粗：要倾斜和加粗的文字左右分别用三个*号包起来
 删除线：要加删除线的文字左右分别用两个~~号包起来
+
+**粗体**
+*斜体*
+***斜体加粗***
+~~删除线~~
 
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22244395/1627526947869-2e9648f9-7d4c-4422-ac1f-32d3b2fa379f.png#clientId=u1e9b5003-5ec9-4&from=paste&height=131&id=u3510e40b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=131&originWidth=337&originalType=binary&ratio=1&size=8635&status=done&style=none&taskId=ue6454394-c270-49a2-b947-c1f45cbfeb8&width=337)
 # 三、引用
@@ -44,7 +67,7 @@
 
 第二行分割表头和内容。
 
-- 有一个就行，为了对齐，多加了几个
+-有一个就行，为了对齐，多加了几个
 文字默认居左
 -两边加：表示文字居中
 -右边加：表示文字居右
@@ -59,10 +82,68 @@
 代码...
 ```
 # 十、流程图
-![](https://cdn.nlark.com/yuque/__flowchart/77ec7222c9a5ba7058bbbfb7fb803fa4.svg#lake_card_v2=eyJ0eXBlIjoiZmxvd2NoYXJ0IiwiY29kZSI6InN0PT5zdGFydDog5byA5aeLXG5vcD0-b3BlcmF0aW9uOiBNeSBPcGVyYXRpb25cbmNvbmQ9PmNvbmRpdGlvbjogWWVzIG9yIE5vP1xuZT0-ZW5kXG5zdC0-b3AtPmNvbmRcbmNvbmQoeWVzKS0-ZVxuY29uZChubyktPm9wIiwidXJsIjoiaHR0cHM6Ly9jZG4ubmxhcmsuY29tL3l1cXVlL19fZmxvd2NoYXJ0Lzc3ZWM3MjIyYzlhNWJhNzA1OGJiYmZiN2ZiODAzZmE0LnN2ZyIsImlkIjoiY2RjOWNlMjAiLCJtYXJnaW4iOnsidG9wIjp0cnVlLCJib3R0b20iOnRydWV9LCJjYXJkIjoiZGlhZ3JhbSJ9)```
+![](https://cdn.nlark.com/yuque/__flowchart/77ec7222c9a5ba7058bbbfb7fb803fa4.svg#lake_card_v2=eyJ0eXBlIjoiZmxvd2NoYXJ0IiwiY29kZSI6InN0PT5zdGFydDog5byA5aeLXG5vcD0-b3BlcmF0aW9uOiBNeSBPcGVyYXRpb25cbmNvbmQ9PmNvbmRpdGlvbjogWWVzIG9yIE5vP1xuZT0-ZW5kXG5zdC0-b3AtPmNvbmRcbmNvbmQoeWVzKS0-ZVxuY29uZChubyktPm9wIiwidXJsIjoiaHR0cHM6Ly9jZG4ubmxhcmsuY29tL3l1cXVlL19fZmxvd2NoYXJ0Lzc3ZWM3MjIyYzlhNWJhNzA1OGJiYmZiN2ZiODAzZmE0LnN2ZyIsImlkIjoiY2RjOWNlMjAiLCJtYXJnaW4iOnsidG9wIjp0cnVlLCJib3R0b20iOnRydWV9LCJjYXJkIjoiZGlhZ3JhbSJ9)
+
+```
 对象A->对象B: 对象B你好吗?（请求）
 Note right of 对象B: 对象B的描述
 Note left of 对象A: 对象A的描述(提示)
 对象B-->对象A: 我很好(响应)
 对象A->对象B: 你真的好吗？
 ```
+
+# 十一、目录
+
+```
+<!-- GFM-TOC -->
+<!-- GFM-TOC -->
+
+可以通过vscode插件创建目录
+```
+
+# 十二、公式
+
+[markdown公式符号大全](https://blog.csdn.net/konglongdanfo1/article/details/85204312)
+
+
+$$ 
+x_1, x_2, \dots, x_n \quad \quad 1, 2, \cdots, n \quad \quad \vdots \quad\quad \ddots \quad \quad \sqrt{a + b}
+$$
+
+$$
+y=
+\begin{cases}
+-x,\quad x\leq 0\\
+x, \quad x>0
+\end{cases}
+\tag{1}
+$$
+
+$$
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\tag{1}
+$$
+
+$$\left(
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right)
+\tag{2}
+$$
+
+$$\left[
+\begin{matrix}
+1 & 2 & 3\\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right]
+\tag{3}
+$$
