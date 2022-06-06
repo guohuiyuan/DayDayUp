@@ -113,3 +113,22 @@ spec:
   type: NodePort
 ```
 
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-team-app-qa-vue
+  namespace: test-team
+  labels: 
+   devtestops/app: qa-vue
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http
+    nodePort: 30088
+  selector:
+    devtestops/app: qa-vue
+```

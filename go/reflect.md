@@ -1,17 +1,27 @@
 # 1. 反射
 反射是指在程序运行期对程序本身进行访问和修改的能力
 
-1.1.1. 变量的内在机制
+<!-- GFM-TOC -->
+- [1. 反射](#1-反射)
+	- [1.1 变量的内在机制](#11-变量的内在机制)
+	- [1.2 反射的使用](#12-反射的使用)
+	- [1.3 空接口与反射](#13-空接口与反射)
+	- [1.4 结构体与反射](#14-结构体与反射)
+	- [1.5 反射练习](#15-反射练习)
+	- [2.1 结构体转map[string]interface{}](#21-结构体转mapstringinterface)
+<!-- GFM-TOC -->
+
+## 1.1 变量的内在机制
 * 变量包含类型信息和值信息
 * 类型信息：是静态的元信息，是预先定义好的
 * 值信息：是程序运行过程中动态改变的
 
-1.1.2. 反射的使用
+## 1.2 反射的使用
 * reflect包封装了反射相关的方法
 * 获取类型信息：reflect.TypeOf，是静态的
 * 获取值信息：reflect.ValueOf，是动态的
 
-1.1.3. 空接口与反射
+## 1.3 空接口与反射
 * 反射可以在运行时动态获取程序的各种详细信息
 
 * 反射获取interface类型和数值信息
@@ -72,7 +82,7 @@ func main() {
 }
 ```
 
-1.1.4. 结构体与反射
+## 1.4 结构体与反射
 
 通过反射得到sqlite建表语句
 
@@ -249,7 +259,7 @@ func main() {
 }
 ```
 
-1.1.5. 反射练习
+## 1.5 反射练习
 
 - 任务：解析如下配置文件
   - 序列化：将结构体序列化为配置文件数据并保存到硬盘
@@ -339,3 +349,82 @@ func getErr(msg string, err error){
 }
 ```
 
+## 2.1 结构体转map[string]interface{}
+- 方法一: 结构体序列化为json字符串,json字符串再反序列化为map
+
+```
+    m := Message{
+		Type:     "note_on",
+		Note:     60,
+		Velocity: 64,
+	}
+	b, _ := json.Marshal(m)
+	var mm map[string]interface{}
+	_ = json.Unmarshal(b, &mm)
+```
+
+PS: 有个天坑,通过这样转化,结构体原来的int类型的字段在map中成了float64类型,非常不利于处理
+
+- 方法二: 通过反射,来转化
+
+```
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Message struct {
+	Type       string  `json:"type"`
+	Data       []byte  `json:"data"`
+	Channel    int     `json:"channel"`
+	Control    byte    `json:"control"`
+	FrameType  int     `json:"frame_type"`
+	FrameValue int     `json:"frame_value"`
+	Note       byte    `json:"note"`
+	Pitch      int     `json:"pitch"`
+	Pos        int     `json:"pos"`
+	Program    byte    `json:"program"`
+	Song       byte    `json:"song"`
+	Value      byte    `json:"value"`
+	Velocity   byte    `json:"velocity"`
+	Time       float64 `json:"time"`
+}
+
+func main() {
+	m := Message{
+		Type:     "note_on",
+		Note:     60,
+		Velocity: 64,
+	}
+	mm, err := ToMap(m, "json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	for k, v := range mm {
+		fmt.Printf("%v,%v,%T\n", k, v, v)
+	}
+}
+
+func ToMap(in interface{}, tagName string) (out map[string]interface{}, err error) {
+	out = make(map[string]interface{})
+	v := reflect.ValueOf(in)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	if v.Kind() != reflect.Struct {
+		err = fmt.Errorf("ToMap only accepts struct or struct pointer; got %T", v)
+		return
+	}
+	t := v.Type()
+	for i := 0; i < v.NumField(); i++ {
+		fi := t.Field(i)
+		if tagValue := fi.Tag.Get(tagName); tagValue != "" {
+			out[tagValue] = v.Field(i).Interface()
+		}
+	}
+	return
+}
+
+```

@@ -62,10 +62,15 @@ kubectl describe deployment framework-app-example -n framework
 # 进入容器 
 kubectl exec pod名称 -it -c 容器名称 /bin/sh
 kubectl exec framework-app-qa-75c9bcd555-rdck5 -it -c qa /bin/sh -n framework
+kubectl exec -it nginx-ingress-controller-69488949c7-cnt7b -n ingress-nginx -- bash
 
 # 查看配置
 kubectl get configmaps -n framework-system
 
 # 查看配置详细状态
 kubectl describe configmaps appinfo-for-sms2http-at-team-framework
+
+# 查看ingress
+kubectl describe ingress encrypt-cgi2-ingress -n frame
+
 ```
