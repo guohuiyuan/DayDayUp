@@ -63,6 +63,10 @@
 ## k8s
 1. [kubectl使用](./k8s/kubectl.md)
 
+## midi
+1. [midi-音乐格式](./midi/midi.md)
+2. [timidity-midi格式转换工具](./midi/timidity.md)
+
 ## 注意事项
 1. [提交内容](./notice/content.md)
 2. [提交格式](./notice/commitFormat.md)

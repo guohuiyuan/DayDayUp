@@ -8,6 +8,7 @@
     - [2. 下载sound font](#2-下载sound-font)
     - [3. 编辑配置文件](#3-编辑配置文件)
     - [4. 格式转化](#4-格式转化)
+    - [5. 注意](#5-注意)
 <!-- GFM-TOC -->
 
 ## 吐槽
@@ -57,3 +58,6 @@ soundfont FluidR3_GM.sf2
 ```
 timidity test.mid -Ow -o test.wav
 ```
+
+### 5. 注意
+因为我是在supervisor上跑go程序，因为更新了环境变量，而supervisor需要重启(supervisord -c /etc/supervisord.conf)来加载新的环境变量，要不然找不到timidity
