@@ -9,6 +9,7 @@
     - [3. 编辑配置文件](#3-编辑配置文件)
     - [4. 格式转化](#4-格式转化)
     - [5. 注意](#5-注意)
+    - [6. 参考脚本](#6-参考脚本)
 <!-- GFM-TOC -->
 
 ## 吐槽
@@ -21,13 +22,15 @@ timidity需要从[timidity官网](http://timidity.sourceforge.net/)上下载，�
 参考代码
 
 ```
-wget http://nchc.dl.sourceforge.net/sourceforge/timidity/TiMidity++-2.13.2.tar.bz2
+wget https://master.dl.sourceforge.net/project/timidity/TiMidity%2B%2B/TiMidity%2B%2B-2.13.2/TiMidity%2B%2B-2.13.2.tar.gz
 
-tar jxvf TiMidity++-2.13.2.tar.bz2
+tar -zxvf TiMidity++-2.13.2.tar.gz
 
 cd TiMidity++-2.13.2
 
-./configure ;make;make install
+./configure --prefix=/usr/local/timidity --enable-audio=oss
+make
+make install
 ```
 
 记得把timidity添加到环境变量去
@@ -61,3 +64,31 @@ timidity test.mid -Ow -o test.wav
 
 ### 5. 注意
 因为我是在supervisor上跑go程序，因为更新了环境变量，而supervisor需要重启(supervisord -c /etc/supervisord.conf)来加载新的环境变量，要不然找不到timidity
+
+
+### 6. 参考脚本
+timidity 安装脚本
+
+```
+#!/bin/sh
+wget https://master.dl.sourceforge.net/project/timidity/TiMidity%2B%2B/TiMidity%2B%2B-2.13.2/TiMidity%2B%2B-2.13.2.tar.gz
+tar -zxvf TiMidity++-2.13.2.tar.gz
+cd TiMidity++-2.13.2
+./configure --prefix=/usr/local/timidity --enable-audio=oss
+make
+make install
+mkdir -p /usr/local/share/sondfont
+cd /usr/local/share/sondfont
+wget https://gitcode.net/anto_july/midi/-/raw/master/FluidR3_GM.sf2
+mkdir -p /usr/local/timidity/share/timidity
+touch /usr/local/timidity/share/timidity/timidity.cfg
+cat  /usr/local/timidity/share/timidity/timidity.cfg << EOF
+dir /usr/local/share/sondfont
+soundfont FluidR3_GM.sf2
+EOF
+echo 'export PATH=$PATH:/usr/local/timidity/bin' >> /etc/bashrc
+source /etc/bashrc
+cd ~
+wget https://gitcode.net/anto_july/midi/-/raw/master/test.mid
+timidity test.mid -Ow -o test.wav
+```
