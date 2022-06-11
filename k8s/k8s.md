@@ -1,10 +1,14 @@
 # k8s
 [官方文档](https://kubernetes.io/zh/docs/home/)
 <!-- GFM-TOC -->
-* [k8s](#k8s)
-    * [定义](#定义)
-    * [专有名词](#专有名词)
+- [k8s](#k8s)
+  - [学习文档](#学习文档)
+  - [定义](#定义)
+  - [专有名词](#专有名词)
 <!-- GFM-TOC -->
+## 学习文档
+[Kubernetes in Action中文版.pdf 观后笔记 一](https://www.cnblogs.com/clockq/p/12283169.html)
+
 ## 定义
 Kubernetes 是用于自动部署，扩展和管理容器化应用程序的开源系统。
 

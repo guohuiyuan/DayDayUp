@@ -33,13 +33,13 @@ make
 make install
 ```
 
-记得把timidity添加到环境变量去
+记得把/usr/local/timidity/bin添加到环境变量
 
 ### 2. 下载sound font
 这个很多教程里说的都网站都挂了，最后我去搜了一下sound font,找到一个[贴子](https://tieba.baidu.com/p/2278864390)里有[资源](http://pan.baidu.com/share/link?shareid=99298&uk=1143994068)
 
 ```
-mkdir /usr/local/share/sondfont
+mkdir -p /usr/local/share/sondfont
 
 mv FluidR3_GM.sf2 /usr/local/share/sondfont
 ```
@@ -47,7 +47,7 @@ mv FluidR3_GM.sf2 /usr/local/share/sondfont
 ### 3. 编辑配置文件
 
 ```
-mkdir /usr/local/timidity/share/timidity
+mkdir -p /usr/local/timidity/share/timidity
 cd /usr/local/timidity/share/timidity
 vim timidity.cfg
 
@@ -63,8 +63,9 @@ timidity test.mid -Ow -o test.wav
 ```
 
 ### 5. 注意
-因为我是在supervisor上跑go程序，因为更新了环境变量，而supervisor需要重启(supervisord -c /etc/supervisord.conf)来加载新的环境变量，要不然找不到timidity
+因为我是在supervisor上跑go程序,supervisord启动时继承的是当时的环境变量,而新安装了timidity,配置了timidity环境变量,原来的环境变量不适用了。
 
+需要将supervisor重启(supervisord -c /etc/supervisord.conf)来加载新的环境变量,来使用timidity命令
 
 ### 6. 参考脚本
 timidity 安装脚本
