@@ -10,6 +10,8 @@
     - [4. if语句](#4-if语句)
     - [5. makefile](#5-makefile)
     - [6. string](#6-string)
+  - [systemctl](#systemctl)
+  - [yum](#yum)
 <!-- GFM-TOC -->
 
 ## 常见的坑
@@ -217,3 +219,10 @@ www.aaa.com/123.htm
 | ${string##*chars}          | 从 string 字符串最后一次出现 *chars 的位置开始,截取 *chars 右边的所有字符。 |
 | ${string%chars*}           | 从 string 字符串第一次出现 *chars 的位置开始,截取 *chars 左边的所有字符。 |
 | ${string%%chars*}          | 从 string 字符串最后一次出现 *chars 的位置开始,截取 *chars 左边的所有字符。 |
+
+
+## systemctl
+开机自启需要这个玩意,个人感觉命令有点类似supervisord
+[Linux之systemctl命令基本使用](https://blog.csdn.net/qq_41684621/article/details/117257839)
+
+## yum
