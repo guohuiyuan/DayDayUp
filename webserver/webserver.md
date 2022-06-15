@@ -7,6 +7,8 @@
   - [搭建环境](#搭建环境)
     - [搭建科学上网环境](#搭建科学上网环境)
     - [搭建文件服务器](#搭建文件服务器)
+      - [安装supervisord](#安装supervisord)
+      - [nginx配置](#nginx配置)
 <!-- GFM-TOC -->
 
 ## 吐槽
@@ -92,13 +94,15 @@ cd /usr/local/openssl
 ./config -t
 make depend
 
-cd /usr/local
+## 危险操作
+<!-- cd /usr/local
 ln -s openssl ssl
 echo "/usr/local/openssl/lib" >>/etc/ld.so.conf
 
 cd - 
 ldconfig
-echo $?
+echo $? -->
+
 echo "PATH=$PATH:/usr/local/openssl/bin" >> /etc/profile && source /etc/profile
 ```
 
@@ -108,5 +112,163 @@ echo "PATH=$PATH:/usr/local/openssl/bin" >> /etc/profile && source /etc/profile
 ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module  --with-pcre=/usr/local/src/pcre-8.35 --with-openssl=../opensll-1.1.0e
 ```
 
-终于安装成功了
+终于成功安装了
+
+
+#### 安装supervisord
+安装supervisor来管理nginx启动
+
+```
+yum install -y epel-release  #安装epel源
+yum install -y supervisor    #安装supervisor
+systemctl enable supervisord # 开机自启动
+systemctl start supervisord  # 启动supervisord服务
+systemctl status supervisord # 查看supervisord服务状态
+ps -aux|grep supervisord     # 查看是否存在supervisord进程
+vim /etc/supervisord.conf    #编辑配置文件
+```
+
+```
+[program:nginx]
+command=/usr/local/webserver/nginx/sbin/nginx
+directory=/usr/local/webserver/nginx/sbin
+autostart=true
+autorestart=true
+startsecs=5 
+startretries=100 
+stderr_logfile=/usr/local/webserver/nginx/sbin/error.log
+stdout_logfile=/usr/local/webserver/nginx/sbin/info.log
+```
+
+#### nginx配置
+
+```
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+	default_type 'text/html';
+        charset utf-8;
+	client_max_body_size 1024m;	
+
+        #access_log  logs/host.access.log  main;
+        
+        location /file{
+	    root /data;
+	}
+ 
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+}
+
+```
 
