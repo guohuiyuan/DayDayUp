@@ -9,6 +9,9 @@
     - [搭建文件服务器](#搭建文件服务器)
       - [安装supervisord](#安装supervisord)
       - [nginx配置](#nginx配置)
+      - [域名配置](#域名配置)
+    - [搭建qq机器人](#搭建qq机器人)
+    - [搭建mockingbird服务器](#搭建mockingbird服务器)
 <!-- GFM-TOC -->
 
 ## 吐槽
@@ -23,7 +26,8 @@
 - [x] 搭建科学上网环境 
 - [x] 搭建文件服务器
 - [ ] 搭建个人博客(我用github和github pages写博客)
-- [x] 搭建qqbot
+- [x] 搭建qq机器人
+- [x] 搭建mockingbird服务器(mockingbird是一个文字转语音服务) 
 
 ## 搭建环境
 
@@ -89,19 +93,6 @@ vim src/os/unix/ngx_user.c
 wget http://www.openssl.org/source/openssl-1.1.0e.tar.gz
 tar -zxvf openssl-1.1.0e.tar.gz
 cd openssl-1.1.0e/ &&./config shared zlib --prefix=/usr/local/openssl && make && make install
-
-cd /usr/local/openssl
-./config -t
-make depend
-
-## 危险操作
-<!-- cd /usr/local
-ln -s openssl ssl
-echo "/usr/local/openssl/lib" >>/etc/ld.so.conf
-
-cd - 
-ldconfig
-echo $? -->
 
 echo "PATH=$PATH:/usr/local/openssl/bin" >> /etc/profile && source /etc/profile
 ```
@@ -272,3 +263,57 @@ http {
 
 ```
 
+#### 域名配置
+在[namesilo](https://www.namesilo.com/)购买域名后,使用[cloudflare](https://dash.cloudflare.com/)添加域名解析服务.
+
+
+### 搭建qq机器人
+qq机器人使用的是go-cqhttp + Zerobot-Plugin
+脚本搭建方法
+
+```
+wget --no-check-certificate https://gitcode.net/anto_july/zbp/-/raw/master/go-cqhttp.sh
+chmod +x go-cqhttp.sh
+./go-cqhttp.sh 2>&1 | tee go-cqhttp.log
+
+wget --no-check-certificate https://gitcode.net/anto_july/zbp/-/raw/master/zbp.sh
+chmod +x zbp.sh
+./zbp.sh 2>&1 | tee zbp.log
+```
+
+### 搭建mockingbird服务器
+需要通过python运行源码,所以要下载git还有pip下载包
+
+```
+# 配置git环境
+yum -y install git
+git config --global user.email "1156544355@qq.com"
+git config --global user.name "guohuiyuan"
+ssh-keygen -t rsa -C "1156544355@qq.com"
+cat ~/.ssh/id_rsa.pub
+# ~/.ssh/id_rsa.pub 把这个内容加入到[github的ssh配置里](https://github.com/settings/ssh/new)
+
+# 安装minianaconda 管理python版本
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.12.0-Linux-x86_64.sh
+sh Miniconda3-py39_4.12.0-Linux-x86_64.sh
+echo 'export PATH=$PATH:/root/miniconda3/bin' >> /etc/bashrc
+source /etc/bashrc
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud//pytorch/
+
+# 下载mockingbird源码
+git clone git@github.com:guohuiyuan/MockingBird.git
+cd MockingBird
+pip install -r requirements.txt
+
+
+# 下载模型
+mkdir synthesizer/saved_models
+cd synthesizer/saved_models
+wget https://pan.yropo.top/home/source/mockingbird/azusa/azusa.pt
+wget https://pan.yropo.top/home/source/mockingbird/nanmei/nanmei.pt
+wget https://pan.yropo.top/home/source/mockingbird/ltyai/ltyai.pt
+wget https://pan.yropo.top/home/source/mockingbird/tianyi/tianyi.pt
+```
