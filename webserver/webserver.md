@@ -37,7 +37,7 @@ chmod +x shadowsocks-go.sh
 ```
 
 ### 搭建文件服务器
-这个最简单的方法,就是给服务器装一个nginx,去暴露服务器的某个文件夹,需要绑定一个域名用于wget。
+实现文件服务器最简单的方法,就是给服务器装一个nginx,去暴露服务器的某个文件夹,需要绑定一个域名用于wget下载文件,上传文件可以通过scp test.txt root@0.0.0.0:/data/file命令上传
 
 [Nginx 安装](https://www.runoob.com/linux/nginx-install-setup.html)
 
@@ -108,4 +108,5 @@ echo "PATH=$PATH:/usr/local/openssl/bin" >> /etc/profile && source /etc/profile
 ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module  --with-pcre=/usr/local/src/pcre-8.35 --with-openssl=../opensll-1.1.0e
 ```
 
-终于成功安装了
+终于安装成功了
+

@@ -86,6 +86,9 @@
 ### shell
 1. [常见用法](./tool/shell/commonUsage.md)
 
+## 服务器配置
+1. [服务器搭建](./webserver/webserver.md)
+
 
 
 
