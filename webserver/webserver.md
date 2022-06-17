@@ -27,7 +27,7 @@
 - [x] 搭建文件服务器
 - [ ] 搭建个人博客(我用github和github pages写博客)
 - [x] 搭建qq机器人
-- [x] 搭建mockingbird服务器(mockingbird是一个文字转语音服务) 
+- [x] 搭建mockingbird服务器(mockingbird是一个文字转语音服务,吃资源) 
 
 ## 搭建环境
 
@@ -46,6 +46,8 @@ chmod +x shadowsocks-go.sh
 实现文件服务器最简单的方法,就是给服务器装一个nginx,去暴露服务器的某个文件夹,需要绑定一个域名用于wget下载文件,上传文件可以通过scp test.txt root@0.0.0.0:/data/file命令上传
 
 [Nginx 安装](https://www.runoob.com/linux/nginx-install-setup.html)
+
+nginx安装直接 yum -y install nginx
 
 [Nginx 安装常见问题](https://www.ancii.com/asey6ubbm/)
 
@@ -306,7 +308,19 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/
 # 下载mockingbird源码
 git clone git@github.com:guohuiyuan/MockingBird.git
 cd MockingBird
+conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
+
+yum install epel-release -y
+yum update -y
+rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+yum install ffmpeg ffmpeg-devel -y
+
 pip install -r requirements.txt
+pip install webrtcvad-wheels
+
+# OSError: sndfile library not found
+yum -y install libsndfile
 
 
 # 下载模型
@@ -316,4 +330,6 @@ wget https://pan.yropo.top/home/source/mockingbird/azusa/azusa.pt
 wget https://pan.yropo.top/home/source/mockingbird/nanmei/nanmei.pt
 wget https://pan.yropo.top/home/source/mockingbird/ltyai/ltyai.pt
 wget https://pan.yropo.top/home/source/mockingbird/tianyi/tianyi.pt
+wget https://pan.yropo.top/home/source/mockingbird/nanami1/nanami1.pt
+wget https://pan.yropo.top/home/source/mockingbird/nanami2/nanami2.pt
 ```

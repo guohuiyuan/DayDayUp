@@ -68,7 +68,7 @@ timidity test.mid -Ow -o test.wav
 需要将supervisor重启(supervisord -c /etc/supervisord.conf)来加载新的环境变量,来使用timidity命令
 
 ### 6. 参考脚本
-timidity 安装脚本
+timidity linux安装脚本
 
 ```
 #!/bin/sh
@@ -92,4 +92,20 @@ source /etc/bashrc
 cd ~
 wget https://gitcode.net/anto_july/midi/-/raw/master/test.mid
 timidity test.mid -Ow -o test.wav
+```
+
+timidity windows安装脚本
+
+```
+md "D:\Program Files\timidity"
+cd /D "D:\Program Files\timidity"
+powershell (new-object System.Net.WebClient).DownloadFile('https://gitcode.net/anto_july/midi/-/raw/master/timidity.exe','timidity.exe')
+powershell (new-object System.Net.WebClient).DownloadFile('https://gitcode.net/anto_july/midi/-/raw/master/timidity.cfg','timidity.cfg')
+powershell (new-object System.Net.WebClient).DownloadFile('https://gitcode.net/anto_july/midi/-/raw/master/FluidR3_GM.sf2','FluidR3_GM.sf2')
+powershell (new-object System.Net.WebClient).DownloadFile('https://gitcode.net/anto_july/midi/-/raw/master/test.mid','test.mid')
+
+::setx -m PATH "%PATH%;D:\Program Files\timidity"
+wmic ENVIRONMENT where "name='PATH' and username='<system>'" set VariableValue="%PATH%;D:\Program Files\timidity"
+timidity test.mid -Ow -o test.wav
+pause
 ```
