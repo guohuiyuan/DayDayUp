@@ -63,6 +63,12 @@
 ## k8s
 1. [kubectl使用](./k8s/kubectl.md)
 
+### 面试题
+
+#### 基础相关
+
+1. [json包里使用的时候，结构体里的变量不加tag能不能正常转成json里的字段？](./interviewExperience/interviewquestions/jsonWithoutTag.md)
+
 ## 注意事项
 1. [提交内容](./notice/content.md)
 2. [提交格式](./notice/commitFormat.md)
