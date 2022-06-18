@@ -25,6 +25,8 @@
 
 我此处还配置了GOBIN,路径为项目目录下的bin目录。
 
+还要配置GOPATH/bin为环境变量，因为vscode的很多go插件是下载在GOPATH/bin的目录下。
+
 5. 设置代理加快访问速度：
 
 cmd中输入下面代码：
