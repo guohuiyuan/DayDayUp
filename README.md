@@ -63,11 +63,17 @@
 ## k8s
 1. [kubectl使用](./k8s/kubectl.md)
 
+
 ### 面试题
 
 #### 基础相关
 
 1. [json包里使用的时候，结构体里的变量不加tag能不能正常转成json里的字段？](./interviewExperience/interviewquestions/jsonWithoutTag.md)
+
+## midi
+1. [midi-音乐格式](./midi/midi.md)
+2. [timidity-midi格式转换工具](./midi/timidity.md)
+
 
 ## 注意事项
 1. [提交内容](./notice/content.md)
@@ -87,6 +93,9 @@
 
 ### shell
 1. [常见用法](./tool/shell/commonUsage.md)
+
+## 服务器配置
+1. [服务器搭建](./webserver/webserver.md)
 
 
 
