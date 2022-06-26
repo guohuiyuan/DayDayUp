@@ -1,10 +1,3 @@
-<!--
- * @Description: 
- * @Author: Alone
- * @Date: 2022-05-10 22:32:20
- * @LastEditors: Alone
- * @LastEditTime: 2022-05-10 23:00:30
--->
 # vscode搭建go开发环境
 
 1. 安装包下载地址: `https://golang.google.cn/` 

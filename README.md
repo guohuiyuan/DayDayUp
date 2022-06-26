@@ -48,14 +48,10 @@
 
 ## Java
 
-### 基础
-
 1. [基础](./java/basic/basic.md)
-
-### 线程
-
-1. [线程生命周期](./java/thread/ThreadLifeCycle.md)
-2. [ThreadLocal](./java/thread/ThreadLocal.md)
+2. [线程生命周期](./java/thread/ThreadLifeCycle.md)
+3. [ThreadLocal](./java/thread/ThreadLocal.md)
+4. [Spring依赖注入](./java/dependencyinject.md)
 
 ## jsp
 1. [jsp标签](./jsp/tag.md)
