@@ -72,5 +72,25 @@ vscode go插件配置,仅供参考
         "description"
     ],
     "leetcode.hint.configWebviewMarkdown": false,
+        "go.testFlags": [
+        "-v"
+    ],
+    "terminal.integrated.defaultProfile.windows": "GitBash",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "path": "${env:windir}\\System32\\cmd.exe",
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "GitBash": {
+            "path": "D:\\Program Files\\Git\\bin\\bash.exe",
+            "args": []
+        }
+    },
  }
 ```

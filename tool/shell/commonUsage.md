@@ -182,6 +182,9 @@ A: 源码的安装一般由3个步骤组成：配置(configure)、编译(make)�
 
 Makefile,运行不了./configure,暂时不清楚原因
 
+[windows使用make命令的方法](https://www.eemaker.com/git-bash-make.html)
+
+
 ### 6. string
 
 ```
@@ -226,3 +229,4 @@ www.aaa.com/123.htm
 [Linux之systemctl命令基本使用](https://blog.csdn.net/qq_41684621/article/details/117257839)
 
 ## yum
+![yum参数](https://img-blog.csdn.net/20180427135431106?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L09VQ0ZTQg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)

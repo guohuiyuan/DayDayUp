@@ -2,17 +2,20 @@
 
 <!-- GFM-TOC -->
 - [二分查找](#二分查找)
-  - [通用模板](#通用模板)
-  - [查找最左边相等的](#查找最左边相等的)
-  - [查找最右边相等的](#查找最右边相等的)
-  - [搜索插入位置](#搜索插入位置)
-  - [完整示例](#完整示例)
+	- [通用模板](#通用模板)
+	- [查找最左边相等的](#查找最左边相等的)
+	- [查找最右边相等的](#查找最右边相等的)
+	- [搜索插入位置](#搜索插入位置)
+	- [完整示例](#完整示例)
 <!-- GFM-TOC -->
 
 ## 通用模板
 
 ```
 func search(nums []int, target int) int {
+	if len(nums) == 0 {
+		return -1
+	}
 	start := 0
 	end := len(nums) - 1
 	for start+1 < end {
@@ -39,9 +42,12 @@ func search(nums []int, target int) int {
 
 ```
 func searchLeft(nums []int, target int) int {
+	res := -1
+	if len(nums) == 0 {
+		return res
+	}
 	start := 0
-	end := len(nums) - 1
-    res := -1
+	end := len(nums) - 1  
 	for start+1 < end {
 		mid := start + (end-start)/2
 		if nums[mid] >= target {
@@ -64,9 +70,12 @@ func searchLeft(nums []int, target int) int {
 
 ```
 func searchRight(nums []int, target int) int {
+	res := -1
+	if len(nums) == 0 {
+		return res
+	}
 	start := 0
-	end := len(nums) - 1
-    res := -1
+	end := len(nums) - 1  
 	for start+1 < end {
 		mid := start + (end-start)/2
 		if nums[mid] <= target {
@@ -89,6 +98,9 @@ func searchRight(nums []int, target int) int {
 
 ```
 func searchInsert(nums []int, target int) int {
+	if len(nums) == 0 {
+		return -1
+	}
 	start := 0
 	end := len(nums) - 1
 	for start+1 < end {
@@ -131,6 +143,9 @@ func main() {
 }
 
 func search(nums []int, target int) int {
+	if len(nums) == 0 {
+		return -1
+	}
 	start := 0
 	end := len(nums) - 1
 	for start+1 < end {
@@ -153,9 +168,12 @@ func search(nums []int, target int) int {
 }
 
 func searchLeft(nums []int, target int) int {
-	start := 0
-	end := len(nums) - 1
 	res := -1
+	if len(nums) == 0 {
+		return res
+	}
+	start := 0
+	end := len(nums) - 1  
 	for start+1 < end {
 		mid := start + (end-start)/2
 		if nums[mid] >= target {
@@ -174,9 +192,12 @@ func searchLeft(nums []int, target int) int {
 }
 
 func searchRight(nums []int, target int) int {
-	start := 0
-	end := len(nums) - 1
 	res := -1
+	if len(nums) == 0 {
+		return res
+	}
+	start := 0
+	end := len(nums) - 1  
 	for start+1 < end {
 		mid := start + (end-start)/2
 		if nums[mid] <= target {
