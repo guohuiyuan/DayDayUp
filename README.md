@@ -28,9 +28,8 @@
 
 ## 数据库
 
-### MySQL
-
 1. [MySQL工作流程](./database/MySQL/howtowork.md)
+2. [递归查询](./database/recursive.md)
 
 ## docker
 1. [docker学习](./docker/dockerStudy.md)
