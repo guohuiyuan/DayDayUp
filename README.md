@@ -40,6 +40,11 @@
 3. [函数](./go/function.md)
 4. [生产者消费者模型](./go/productconsumermodel.md)
 5. [反射](./go/reflect.md)
+6. [引包](./go/package.md)
+7. [gopath中的工具](./go/pathtool.md)
+8. [vscode go插件参考配置](./go/vscodeSettings.md)
+9. [加锁](./go/lock.md)
+10. [模板](./go/template.md)
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)

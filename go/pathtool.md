@@ -37,6 +37,7 @@ ${workspaceFolder}是vscode环境[变量](https://zhuanlan.zhihu.com/p/186026657
 
 
 ## dlv
+实际上vscode已经集成了dlv的功能，我们并不需要自己去调dlv
 go的调试工具
 [GO delve(dlv)调试工具笔记及实操](https://zhuanlan.zhihu.com/p/425645473)
 
