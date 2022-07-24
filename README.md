@@ -45,6 +45,8 @@
 8. [vscode go插件参考配置](./go/vscodeSettings.md)
 9. [加锁](./go/lock.md)
 10. [模板](./go/template.md)
+11. [文件处理](./go/file.md)
+
 
 ## 面经
 1. [汇总](./interviewExperience/summary.md)

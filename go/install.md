@@ -1,5 +1,9 @@
 # vscode搭建go开发环境
 
+- [vscode搭建go开发环境](#vscode搭建go开发环境)
+	- [参考](#参考)
+	- [步骤概括](#步骤概括)
+
 1. 安装包下载地址: `https://golang.google.cn/` 
 2. 安装go工具包时，直接下一步即可，注意安装路径中不要出现中文。
 3. 在命令行输入`go version` 出现下图中画面即为安装成功
@@ -64,3 +68,8 @@ func main() {
 5. [Golang的开始“Hello World”](https://juejin.cn/post/7038198669220266014)
 
 [在搭环境的时候顺带解决了一下windows中Antimalware Service Executable占用内存过高的问题](https://blog.csdn.net/qq_41371349/article/details/106628372)
+
+## 步骤概括
+1. 下载go源代码
+2. 环境变量定义GOROOT、GOPATH, 然后把GOROOT/bin,GOPATH/bin添加到环境变量
+3. vscode安装go扩展, 然后修改vscodeSettings
