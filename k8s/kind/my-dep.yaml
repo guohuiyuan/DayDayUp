@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-dep
+spec:
+  replicas: 1  # number of replicas of frontEnd application
+  selector:
+    matchLabels:
+      app: httpd-app
+  template:
+    metadata:
+      labels: # Must match 'Service' and 'Deployment' labels
+        app: httpd-app
+    spec:
+      containers:
+      - name: httpd
+        image: httpd # docker image of frontend application
+        ports:
+        - containerPort: 80

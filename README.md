@@ -24,7 +24,7 @@
 
 ## 杂记
 ### himawari
-1. [初心](./daily/himawari/initialCommit.md)
+1. [初心](./daily/himawari/1.初心.md)
 
 ## 数据库
 
@@ -35,17 +35,18 @@
 1. [docker学习](./docker/dockerStudy.md)
 
 ## Go
-1. [vscode开发golang环境搭建](./go/install.md)
-2. [基本语法](./go/basicgrammar.md)
+1. [基本语法](./go/basicgrammar.md)
+2. [文件夹遍历](./go/file.md)
 3. [函数](./go/function.md)
-4. [生产者消费者模型](./go/productconsumermodel.md)
-5. [反射](./go/reflect.md)
-6. [引包](./go/package.md)
-7. [gopath中的工具](./go/pathtool.md)
-8. [vscode go插件参考配置](./go/vscodeSettings.md)
-9. [加锁](./go/lock.md)
-10. [模板](./go/template.md)
-11. [文件处理](./go/file.md)
+4. [gin获取响应体内容](./go/gin.md)
+5. [vscode开发golang环境搭建](./go/install.md)
+6. [加锁](./go/lock.md)
+7. [引包](./go/package.md)
+8. [gopath中的工具](./go/pathtool.md)
+9. [生产者消费者模型](./go/productconsumermodel.md)
+10. [反射](./go/reflect.md)
+11. [模板](./go/template.md)
+12. [vscode go插件参考配置](./go/vscodeSettings.md)
 
 
 ## 面经

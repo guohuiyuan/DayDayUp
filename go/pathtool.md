@@ -4,8 +4,7 @@
 - [GOPATH/bin下的可执行文件的用法](#gopathbin下的可执行文件的用法)
 	- [vscode debug](#vscode-debug)
 	- [dlv](#dlv)
-		- [dlv attach](#dlv-attach)
-		- [示例](#示例)
+		- [记一次调试的实操](#记一次调试的实操)
 <!-- GFM-TOC -->
 ## vscode debug
 launch.json
@@ -39,69 +38,25 @@ ${workspaceFolder}是vscode环境[变量](https://zhuanlan.zhihu.com/p/186026657
 ## dlv
 实际上vscode已经集成了dlv的功能，我们并不需要自己去调dlv
 go的调试工具
+[go dlv 结合调试流程熟悉dlv命令的使用](https://zhuanlan.zhihu.com/p/478303635)
 [GO delve(dlv)调试工具笔记及实操](https://zhuanlan.zhihu.com/p/425645473)
 
-### dlv attach
-跟踪一个正在运行的程序
+### 记一次调试的实操
+因为在linux上查找问题, 所以只能用命令行
 
-这个命令将使Delve控制一个已经运行的进程，并开始一个新的调试会话。 当退出调试会话时，你可以选择让该进程继续运行或杀死它。
-
-### 示例
-
-示例代码
+试过用vscode远程连接调, 把服务器调崩了, vscode插件安装服务器好像非常消耗内存
 
 ```
-package main
+ps -ef|grep zbp # 找到进程的pid
 
-import (
-	"fmt"
-	"log"
-	"math/rand"
-	"net/http"
-	"time"
-)
+dlv attach 进程id # 调试进程
 
-func count(i, j int) int {
-	yz := 5
-	result := (i + j) * yz
-	return result
-}
+b plugin\bilibili\bilibili.go:171 # 设置断点
 
-func randHandler(w http.ResponseWriter, r *http.Request) {
-	rand.Seed(time.Now().Unix())
-	var (
-		i = rand.Intn(20)
-		j = rand.Intn(20)
-	)
-	result := count(i, j)
-	_, _ = w.Write([]byte(fmt.Sprintf("%d", result)))
-}
+c # 运行到断点
 
-func main() {
-	http.HandleFunc("/rand", randHandler)
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Fatalf("start server fail: %v", err)
-	}
-}
-```
+n # 下一行
 
-启动dlv
+step # 进入函数里面
 
-```
-go build -o rand.exe main.go
-start rand.exe
-tasklist|grep rand
-dlv attach 912
-```
-
-进入dlv后
-
-```
-# b: break的缩写，设置断点
-b randHandler
-# 请求一次，进入调试
-curl http://localhost:8080/rand
-# c: continue的缩写，继续执行到一个断点或者程序结束
-c
 ```

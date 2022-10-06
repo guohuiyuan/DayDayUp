@@ -12,6 +12,8 @@
       - [域名配置](#域名配置)
     - [搭建qq机器人](#搭建qq机器人)
     - [搭建mockingbird服务器](#搭建mockingbird服务器)
+    - [安装golang](#安装golang)
+    - [服务器支持文件拖拽](#服务器支持文件拖拽)
 <!-- GFM-TOC -->
 
 ## 吐槽
@@ -28,6 +30,7 @@
 - [ ] 搭建个人博客(我用github和github pages写博客)
 - [x] 搭建qq机器人
 - [x] 搭建mockingbird服务器(mockingbird是一个文字转语音服务,吃资源) 
+- [x] 安装golang,运行go源码 
 
 ## 搭建环境
 
@@ -177,19 +180,62 @@ http {
         listen       80;
         server_name  localhost;
 
-	default_type 'text/html';
+        default_type 'text/html';
         charset utf-8;
-	client_max_body_size 1024m;	
+        client_max_body_size 1024m;
 
         #access_log  logs/host.access.log  main;
         
         location /file{
-	    root /data;
-	}
- 
+            root /data;
+        }
+        location /assets{
+            root /data;
+        }
         location / {
             root   html;
             index  index.html index.htm;
+        }
+
+        location /blive {
+            proxy_pass http://127.0.0.1:18000/;
+            proxy_set_header HOST $host; # 将主机名添加到请求头
+            proxy_set_header X-Forwarded-Proto $scheme; # 将协议类型添加到请求头
+            proxy_set_header X-Real-IP $remote_addr; # 将远程客户端IP发送至请求头
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # 将http拓展头添加至请求头 
+        }
+
+        location /api {
+            proxy_pass http://127.0.0.1:18000/api;
+            proxy_set_header HOST $host; # 将主机名添加到请求头
+            proxy_set_header X-Forwarded-Proto $scheme; # 将协议类型添加到请求头
+            proxy_set_header X-Real-IP $remote_addr; # 将远程客户端IP发送至请求头
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # 将http拓展头添加至请求头
+        }
+
+        location /user {
+            proxy_pass http://127.0.0.1:18000/user;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-real-ip $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+        }
+        location /login {
+            proxy_pass http://127.0.0.1:18000/login;
+            proxy_set_header HOST $host; # 将主机名添加到请求头
+            proxy_set_header X-Forwarded-Proto $scheme; # 将协议类型添加到请求头
+            proxy_set_header X-Real-IP $remote_addr; # 将远程客户端IP发送至请求头
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # 将http拓展头添加至请求头
+        }
+
+        location /ws {
+            proxy_pass http://127.0.0.1:18000/ws;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-real-ip $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
         }
 
         #error_page  404              /404.html;
@@ -224,7 +270,6 @@ http {
         #    deny  all;
         #}
     }
-
 
     # another virtual host using mix of IP-, name-, and port-based configuration
     #
@@ -333,3 +378,17 @@ wget https://pan.yropo.top/home/source/mockingbird/tianyi/tianyi.pt
 wget https://pan.yropo.top/home/source/mockingbird/nanami1/nanami1.pt
 wget https://pan.yropo.top/home/source/mockingbird/nanami2/nanami2.pt
 ```
+
+### 安装golang
+
+```
+#!/bin/sh
+
+wget https://golang.google.cn/dl/go1.18.4.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.18.4.linux-amd64.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' >> /etc/bashrc
+source /etc/bashrc
+```
+
+### 服务器支持文件拖拽
+yum install -y lrzsz

@@ -1,8 +1,10 @@
-# go语言文件相关的处理
-- [go语言文件相关的处理](#go语言文件相关的处理)
-  - [filepath.Walk](#filepathwalk)
-  - [filepath.WalkDir](#filepathwalkdir)
-  - [tar包解压](#tar包解压)
+# go语言遍历文件夹
+做了一个需要遍历文件夹的操作, 研究了一下go语言怎么遍历文件夹
+
+- [go语言遍历文件夹](#go语言遍历文件夹)
+	- [filepath.Walk](#filepathwalk)
+	- [filepath.WalkDir](#filepathwalkdir)
+	- [tar包解压](#tar包解压)
 
 ## filepath.Walk
 [文件递归速度比较](https://blog.csdn.net/shan0304/article/details/97685414)
