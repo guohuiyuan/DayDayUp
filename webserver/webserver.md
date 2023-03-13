@@ -474,8 +474,10 @@ wget https://pan.yropo.top/home/source/mockingbird/nanami2/nanami2.pt
 
 wget https://golang.google.cn/dl/go1.20.2.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.20.2.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' >> /etc/bashrc
-source /etc/bashrc
+echo 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' >> /etc/profile
+source /etc/profile
+go env -w GOPROXY=https://goproxy.cn,direct
+go env -w GO111MODULE=auto
 ```
 
 ### 服务器支持文件拖拽
