@@ -472,8 +472,8 @@ wget https://pan.yropo.top/home/source/mockingbird/nanami2/nanami2.pt
 ```
 #!/bin/sh
 
-wget https://golang.google.cn/dl/go1.18.4.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.18.4.linux-amd64.tar.gz
+wget https://golang.google.cn/dl/go1.20.2.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.20.2.linux-amd64.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin:/root/go/bin' >> /etc/bashrc
 source /etc/bashrc
 ```
