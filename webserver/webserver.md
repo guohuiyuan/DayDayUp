@@ -11,6 +11,7 @@
       - [nginx配置](#nginx配置)
       - [域名配置](#域名配置)
     - [搭建qq机器人](#搭建qq机器人)
+      - [真寻机器人](#真寻机器人)
     - [搭建mockingbird服务器](#搭建mockingbird服务器)
     - [安装golang](#安装golang)
     - [服务器支持文件拖拽](#服务器支持文件拖拽)
@@ -326,6 +327,93 @@ chmod +x go-cqhttp.sh
 wget --no-check-certificate https://gitcode.net/anto_july/zbp/-/raw/master/zbp.sh
 chmod +x zbp.sh
 ./zbp.sh 2>&1 | tee zbp.log
+```
+
+#### 真寻机器人
+[安装教程](https://hibikier.github.io/zhenxun_bot/docs/installation_doc/)
+1. notepad++ https://www.onlinedown.net/soft/40308.htm
+
+2. go-cqhttp https://github.ffffffff0x.com/https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc4/go-cqhttp_windows_amd64.exe
+
+配置: ws://127.0.0.1:8080/onebot/v11/ws/
+
+3. postgresql https://get.enterprisedb.com/postgresql/postgresql-15.1-1-windows-x64.exe
+https://www.cnblogs.com/huoniao/articles/6186021.html
+4. python https://mirrors.huaweicloud.com/python/3.9.0/python-3.9.0-amd64.exe
+源代码：
+https://github.ffffffff0x.com/https://github.com/HibiKier/zhenxun_bot/archive/refs/heads/main.zip
+
+1. 可能需要下载的东西
+编译工具1:
+https://download.approximatrix.com/simplyfortran/3.3/simplyfortran-3.3.msi
+编译工具2:
+https://www.microsoft.com/en-us/download/confirmation.aspx?id=48159
+编译工具3:
+https://visualstudio.microsoft.com/visual-cpp-build-tools/
+
+
+
+文件配置：
+```
+bind: str = ""  # 数据库连接链接
+sql_name: str = "postgresql"
+user: str = "postgres"
+password: str = "zhenxun_bot"
+address: str = "127.0.0.1"
+port: str = "5432"
+database: str = "zhenxun_bot"
+```
+C:\Users\Administrator\pip\pip.ini
+```
+[global]
+index-url=http://pypi.tuna.tsinghua.edu.cn/simple/
+[install]
+trusted-host=pypi.tuna.tsinghua.edu.cn 
+```
+
+创建数据库
+```
+-- Table: public.word_bank2
+
+-- DROP TABLE IF EXISTS public.word_bank2;
+
+CREATE TABLE IF NOT EXISTS public.word_bank2
+(
+    id integer NOT NULL DEFAULT nextval('word_bank2_id_seq'::regclass),
+    user_qq bigint NOT NULL,
+    group_id integer,
+    word_scope integer NOT NULL,
+    word_type integer NOT NULL,
+    status boolean NOT NULL,
+    problem character varying COLLATE pg_catalog."default" NOT NULL,
+    answer character varying COLLATE pg_catalog."default" NOT NULL,
+    placeholder character varying COLLATE pg_catalog."default",
+    image_path character varying COLLATE pg_catalog."default",
+    to_me character varying COLLATE pg_catalog."default",
+    create_time timestamp without time zone NOT NULL,
+    update_time timestamp without time zone NOT NULL,
+    CONSTRAINT word_bank2_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.word_bank2
+    OWNER to postgres;
+
+-- SEQUENCE: public.word_bank2_id_seq
+
+-- DROP SEQUENCE IF EXISTS public.word_bank2_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.word_bank2_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY word_bank2.id;
+
+ALTER SEQUENCE public.word_bank2_id_seq
+    OWNER TO postgres;
 ```
 
 ### 搭建mockingbird服务器

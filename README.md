@@ -86,6 +86,9 @@
 ### bat
 1. [bat语法](./tool/bat/batGrammer.md)
 
+### curl
+1. [curl](./tool/curl/curl.md)
+
 ### markdown
 1. [markdown](./tool/markdown/markdown.md)
 
